@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green API Tester</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <h3 class="page-title">Тест Green API</h3>
+
+        <div class="row">
+            <!-- Левая панель -->
+            <div class="col-left">
+
+                {{if .Error}}
+                <div class="error-box">
+                    <strong>Ошибка:</strong> {{.Error}}
+                </div>
+                {{end}}
+
+                <!-- get форма: getSettings / getStateInstance -->
+                <form method="GET" action="/">
+                    <input type="text" name="idInstance" class="form-control" placeholder="idInstance" value="{{.IDInstance}}" required>
+                    <input type="text" name="apiTokenInstance" class="form-control" placeholder="ApiTokenInstance" value="{{.ApiTokenInstance}}" required>
+                    <button type="submit" name="apiMethod" value="getSettings" class="btn-primary">getSettings</button>
+                    <button type="submit" name="apiMethod" value="getStateInstance" class="btn-primary">getStateInstance</button>
+                </form>
+
+                <hr class="section-divider">
+
+                <!-- post форма: sendMessage -->
+                <form method="POST" action="/">
+                    <input type="hidden" name="idInstance" value="{{.IDInstance}}">
+                    <input type="hidden" name="apiTokenInstance" value="{{.ApiTokenInstance}}">
+                    <input type="text" name="phoneNumber" class="form-control" placeholder="Номер телефона" value="{{.PhoneNumber}}" required>
+                    <textarea name="message" class="form-control" rows="3" placeholder="Текст" required>{{.Message}}</textarea>
+                    <button type="submit" name="apiMethod" value="sendMessage" class="btn-primary">sendMessage</button>
+                </form>
+
+                <hr class="section-divider">
+
+                <!-- post форма: sendFileByUrl -->
+                <form method="POST" action="/">
+                    <input type="hidden" name="idInstance" value="{{.IDInstance}}">
+                    <input type="hidden" name="apiTokenInstance" value="{{.ApiTokenInstance}}">
+                    <input type="text" name="phoneNumber" class="form-control" placeholder="Номер телефона" value="{{.PhoneNumber}}" required>
+                    <input type="text" name="urlFile" class="form-control" placeholder="URL" value="{{.URLFile}}" required>
+                    <button type="submit" name="apiMethod" value="sendFileByUrl" class="btn-primary">sendFileByUrl</button>
+                </form>
+
+            </div>
+
+            <!-- Правая панель -->
+            <div class="col-right">
+                <div class="result-box">{{if .Result}}{{.Result}}{{else}}Ожидание запроса...{{end}}</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
